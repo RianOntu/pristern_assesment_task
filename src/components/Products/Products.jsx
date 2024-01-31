@@ -1,50 +1,69 @@
+import { useRef, useState } from "react";
 import ShowMoreText from "react-show-more-text";
+import './Products.css';
+import SweetPagination from "sweetpagination";
 
-function Products({datas,expand,setExpand}) {
+function Products({ datas, expand, setExpand }) {
+  const showMoreTextRefs = useRef([]);
+  const [expandedIndexes, setExpandedIndexes] = useState([]);
+  const [currentPageData, setCurrentPageData] = useState(datas);
+  const items = datas;
+  const executeOnClick = (event, index) => {
+    setExpand(!expand);
+    setExpandedIndexes((prevIndexes) =>
+      prevIndexes.includes(index)
+        ? prevIndexes.filter((prevIndex) => prevIndex !== index)
+        : [...prevIndexes, index]
+    );
+  };
 
-   
-    const executeOnClick=(event)=>{
-        
-        setExpand(true)
-        console.log(event.target.value);
-    }
-    return (
-        
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
-        {
-            datas.map(data=>(
-                
-                <div class="card mt-3" style={{width:"18rem",margin:"auto",height:"500px"}}>
-          <img src={data.image} class="card-img-top d-flex" alt="..." style={{width:"150px",height:"150px",justifyContent:"center",margin:"auto"}}/>
-          <div class="card-body">
-            <h5 class="card-title">{data.title}</h5>
+  return (
+    <>
+    <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+      {currentPageData.map((data, index) => (
+        <div
+          className="card mt-3"
+          style={{ height: expandedIndexes.includes(index) ? "auto" : "450px", margin: "auto", width: "18rem" }}
+          key={index}
+        >
+          <img src={data.image} className="card-img-top d-flex" alt="..." style={{ width: "150px", height: "150px", justifyContent: "center", margin: "auto" }} />
+          <div className="card-body">
+            <h5 className="card-title">{data.title}</h5>
             <ShowMoreText
-                /* Default options */
-                lines={3}
-                more="Show more"
-                less="Show less"
-                className="content-css"
-                anchorClass="show-more-less-clickable"
-                onClick={()=>executeOnClick}
-                expanded={expand}
-                
-                truncatedEndingComponent={"... "}
+              lines={3}
+              more="Show more"
+              less="Show less"
+              className="content-css"
+              anchorClass="show-more-less-clickable"
+              onClick={(event) => executeOnClick(event, index)}
+              expanded={expandedIndexes.includes(index)}
+              truncatedEndingComponent={"... "}
             >
-            <p class="card-text">{data.description}</p>
+              <div>
+                <p className="card-text">{data.description}</p>
+              </div>
+              
             </ShowMoreText>
-            <div className="mb-2" style={{bottom: "10px", position: "absolute1important"}}>
-            <a href="#" style={{bottom:"3px"}} class="btn btn-primary">View Details</a>
-            </div>
+            <h4>Price : {data.price}</h4>
+           
+              <a href="#" style={{ bottom: "10px",position: "absolute", marginTop: expandedIndexes.includes(index) ? "200px" : "0px" }} className="btn btn-primary" onClick={(event) => executeOnClick(event, index)}>
+                View Details
+              </a>
+            
           </div>
         </div>
-               
-            ))
-           
-        }
+      ))}
+      
+    </div>
+       <SweetPagination
+       currentPageData={setCurrentPageData}
+       dataPerPage={10}
+       getData={items}
+       navigation={true}
        
-       </div>
-        
-    )
+     />
+     </>
+  );
 }
 
-export default Products
+export default Products;

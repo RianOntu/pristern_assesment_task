@@ -1,0 +1,11 @@
+.content-css {
+    margin-bottom: 57px;
+}
+.show-more-less-clickable{
+    position: relative;
+    z-index: 100000000!important;
+    font-weight: 800;
+}
+.sweetPagination{
+    margin-top: 60px!important;
+}

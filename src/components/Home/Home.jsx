@@ -21,7 +21,7 @@ function Home() {
           <Filter datas={datas}></Filter>
           </div>
           <div className="col-12 col-md-6 col-lg-9">
-            <Products datas={datas} setExpand={setExpand} expand={expand}></Products>
+            <Products datas={datas} setExpand={setExpand} expand={expand} setDatas={setDatas}></Products>
             </div>
           </div>
         </div>
