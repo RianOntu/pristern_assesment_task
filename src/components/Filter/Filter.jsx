@@ -1,8 +1,10 @@
 import React from 'react'
 
-function Filter() {
+function Filter({datas}) {
     return (
         <>
+         <h2>Filter By Category:</h2>
+       
         </>
     )
 }
