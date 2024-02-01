@@ -2,14 +2,16 @@ import { useEffect, useRef, useState } from "react";
 import ShowMoreText from "react-show-more-text";
 import './Products.css';
 import SweetPagination from "sweetpagination";
+import { debounce } from 'lodash';
 
-function Products({ datas, expand, setExpand,selectedCategories }) {
+function Products({ datas, expand, setExpand,selectedCategories,selectedValue,handleSelectChange }) {
   const showMoreTextRefs = useRef([]);
   const [items,setItems]=useState([]);
   const [expandedIndexes, setExpandedIndexes] = useState([]);
   const [currentPageData, setCurrentPageData] = useState(datas);
 
-  
+ 
+
   
   useEffect(() => {
     
@@ -20,14 +22,33 @@ function Products({ datas, expand, setExpand,selectedCategories }) {
       );
       setItems(selectedDatas);
       setCurrentPageData(selectedDatas);
+    
     } else {
-      // If no categories are selected, show all data
+     
       setItems(datas);
       setCurrentPageData(datas);
+     
     }
-  }, [selectedCategories, datas]);
+  }, [selectedCategories]);
   
-    
+    useEffect(()=>{
+      let sortedArray=[];
+      let sortedArrayDescending=[]
+     if(selectedValue){
+      if(selectedValue=='asc'){
+         sortedArray = currentPageData.sort((a, b) => a.price - b.price);
+        setCurrentPageData(sortedArray)
+      }
+      else if(selectedValue=='des'){
+         sortedArrayDescending = currentPageData.sort((a, b) => b.price - a.price);
+        setCurrentPageData(sortedArrayDescending)
+      }else{
+        setCurrentPageData(datas)
+      }
+     }
+   
+
+    },[selectedValue])
 
   const executeOnClick = (event, index) => {
    

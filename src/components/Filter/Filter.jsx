@@ -1,7 +1,7 @@
 import React from 'react'
 
-function Filter({categories,selectedCategories,handleCheckboxChange}) {
- 
+function Filter({categories,selectedCategories,handleCheckboxChange,selectedValue,handleSelectChange}) {
+   
    
     
     return (
@@ -23,6 +23,20 @@ function Filter({categories,selectedCategories,handleCheckboxChange}) {
 </div></>
             ))
         }
+
+        <h2>Filter By Price:</h2>
+        <select 
+        class="form-select" 
+        aria-label="Default select example" 
+        value={selectedValue}
+        
+        onChange={handleSelectChange}
+        >
+  <option value='' disabled >Open this select menu</option>
+  <option value="asc">Low to High</option>
+  <option value="des">High To Low</option>
+  
+</select>
          
      
         </>

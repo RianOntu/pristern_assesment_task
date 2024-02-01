@@ -31,17 +31,31 @@ function Home() {
         }
       });
     };
-  
+    const [selectedValue, setSelectedValue] = useState(''); 
+
+    const handleSelectChange = (event) => {
+      
+      if(event.target.value=='asc'){
+        localStorage.clear();
+        localStorage.setItem('asc', JSON.stringify('asc'));
+        setSelectedValue(JSON.parse(localStorage.getItem('asc')));
+      }
+      else if(event.target.value='des'){
+        localStorage.clear();
+        localStorage.setItem('des', JSON.stringify('des'));
+        setSelectedValue(JSON.parse(localStorage.getItem('des')));
+      }
+    };
       
     return (
         <>
         <div className="container mt-5 mb-5">
           <div className="row">
           <div className="col-12 col-md-6 col-lg-3">
-          <Filter datas={datas} categories={categories} selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} handleCheckboxChange={handleCheckboxChange}></Filter>
+          <Filter datas={datas} categories={categories} selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} handleCheckboxChange={handleCheckboxChange} handleSelectChange={handleSelectChange} selectedValue={selectedValue}></Filter>
           </div>
           <div className="col-12 col-md-6 col-lg-9">
-            <Products datas={datas} setExpand={setExpand} expand={expand} setDatas={setDatas} selectedCategories={selectedCategories}></Products>
+            <Products datas={datas} setExpand={setExpand} expand={expand} setDatas={setDatas} selectedCategories={selectedCategories} selectedValue={selectedValue} handleSelectChange={handleSelectChange}></Products>
             </div>
           </div>
         </div>
