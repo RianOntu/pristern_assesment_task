@@ -1,11 +1,24 @@
-.content-css {
-    margin-bottom: 57px;
+.content-css1 span{
+    font-weight: 800;
+    font-size: 18px;
+}
+.content-css{
+    margin-bottom:87px
 }
 .show-more-less-clickable{
     position: relative;
     z-index: 100000000!important;
     font-weight: 800;
 }
+.show-more-less-clickable1{
+    position: relative;
+    z-index: 100000000!important;
+    font-weight: 800;
+}
 .sweetPagination{
     margin-top: 60px!important;
+}
+.price{
+    margin-top: -60px;
+    position: absolute;
 }

@@ -1,25 +1,30 @@
 import React from 'react'
 
-function Filter({datas}) {
-
-    const arrayWithDuplicates = [1, 2, 3, 1, 2, 4, 5, 5];
-
-
-const uniqueSet = new Set(arrayWithDuplicates);
-
-
-const uniqueArray = Array.from(uniqueSet);
-
-console.log(uniqueArray);
+function Filter({categories,selectedCategories,handleCheckboxChange}) {
+ 
+   
+    
     return (
         <>
-         <h2>Filter By Category:</h2>
-         <div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
-  <label class="form-check-label" for="flexCheckChecked">
-    Checked checkbox
+        <h2>Filter By Category:</h2>
+        {
+            categories.map(data=>(
+                <>
+                    <div class="form-check">
+  <input   
+  className="form-check-input"
+  type="checkbox"
+  value={data}
+  checked={selectedCategories.includes(data)}
+  onChange={() => handleCheckboxChange(data)}  />
+  <label class="form-check-label" >
+    {data}
   </label>
-</div>
+</div></>
+            ))
+        }
+         
+     
         </>
     )
 }

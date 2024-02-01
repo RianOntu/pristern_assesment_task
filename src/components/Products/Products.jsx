@@ -1,21 +1,44 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ShowMoreText from "react-show-more-text";
 import './Products.css';
 import SweetPagination from "sweetpagination";
 
-function Products({ datas, expand, setExpand }) {
+function Products({ datas, expand, setExpand,selectedCategories }) {
   const showMoreTextRefs = useRef([]);
+  const [items,setItems]=useState([]);
   const [expandedIndexes, setExpandedIndexes] = useState([]);
   const [currentPageData, setCurrentPageData] = useState(datas);
-  const items = datas;
+
+  
+  
+  useEffect(() => {
+    
+  
+    if (selectedCategories.length > 0) {
+      const selectedDatas = datas.filter((data) =>
+        selectedCategories.includes(data.category)
+      );
+      setItems(selectedDatas);
+      setCurrentPageData(selectedDatas);
+    } else {
+      // If no categories are selected, show all data
+      setItems(datas);
+      setCurrentPageData(datas);
+    }
+  }, [selectedCategories, datas]);
+  
+    
+
   const executeOnClick = (event, index) => {
-    setExpand(!expand);
+   
     setExpandedIndexes((prevIndexes) =>
       prevIndexes.includes(index)
         ? prevIndexes.filter((prevIndex) => prevIndex !== index)
         : [...prevIndexes, index]
     );
   };
+ 
+
 
   return (
     <>
@@ -28,7 +51,10 @@ function Products({ datas, expand, setExpand }) {
         >
           <img src={data.image} className="card-img-top d-flex" alt="..." style={{ width: "150px", height: "150px", justifyContent: "center", margin: "auto" }} />
           <div className="card-body">
-            <h5 className="card-title">{data.title}</h5>
+         
+            <div>
+              <h5 className="card-title title">{(data.title).split(' ').slice(0, 3).join(' ') + '...'}</h5>
+              </div>
             <ShowMoreText
               lines={3}
               more="Show more"
@@ -44,7 +70,8 @@ function Products({ datas, expand, setExpand }) {
               </div>
               
             </ShowMoreText>
-            <h4>Price : {data.price}</h4>
+            <h4 className="card-title price">Price : {data.price}</h4>
+            
            
               <a href="#" style={{ bottom: "10px",position: "absolute", marginTop: expandedIndexes.includes(index) ? "200px" : "0px" }} className="btn btn-primary" onClick={(event) => executeOnClick(event, index)}>
                 View Details
