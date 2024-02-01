@@ -5,52 +5,40 @@ import SweetPagination from "sweetpagination";
 
 function Products({ datas, selectedCategories, selectedValue }) {
   const showMoreTextRefs = useRef([]);
-  const [items, setItems] = useState([]);
+  const [initialData, setInitialData] = useState(datas);
+  const [items, setItems] = useState(datas);
   const [expandedIndexes, setExpandedIndexes] = useState([]);
-  const [currentPageData, setCurrentPageData] = useState([]);
+  const [currentPageData, setCurrentPageData] = useState(datas.slice(0, 10));
   const [shouldFetchMore, setShouldFetchMore] = useState(true);
-  const initialDataRef = useRef(datas);
 
-
-let updatedDatas=[];
   useEffect(() => {
-    const fetchData = async () => {
-      if (shouldFetchMore) {
-        let updatedDatas = [...initialDataRef.current]; 
+    setInitialData(datas);
+  }, [datas]);
 
-        if (selectedCategories.length > 0) {
-          updatedDatas = updatedDatas.filter((data) =>
-            selectedCategories.includes(data.category)
-          );
-        }
+  useEffect(() => {
+    let updatedDatas = [...initialData];
 
-        if (selectedValue) {
-          if (selectedValue === 'asc') {
-            updatedDatas = updatedDatas.slice().sort((a, b) => a.price - b.price);
-          } else if (selectedValue === 'des') {
-            updatedDatas = updatedDatas.slice().sort((a, b) => b.price - a.price);
-          }
-        }
+    if (selectedCategories.length > 0) {
+      updatedDatas = updatedDatas.filter((data) =>
+        selectedCategories.includes(data.category)
+      );
+    }
 
-        setItems(updatedDatas);
-        setCurrentPageData(updatedDatas);
+    if (selectedValue === 'asc') {
+      updatedDatas = updatedDatas.slice().sort((a, b) => a.price - b.price);
+    } else if (selectedValue === 'des') {
+      updatedDatas = updatedDatas.slice().sort((a, b) => b.price - a.price);
+    }
 
-        if (selectedCategories.length === 0) {
-          setItems(datas);
-          setCurrentPageData(datas.slice(0, 10));
-        }
-      if(currentPageData.length < 10){
-        setShouldFetchMore(true);
-      }
-        if (currentPageData.length === 10) {
-          setShouldFetchMore(false);
-        }
-      }
-    };
+    setItems(updatedDatas);
+    setCurrentPageData(updatedDatas.slice(0, 10));
+    setShouldFetchMore(updatedDatas.length > 10);
+  }, [selectedCategories, selectedValue, initialData]);
 
-    fetchData();
-  }, [selectedCategories, selectedValue, shouldFetchMore, datas, currentPageData,updatedDatas]);
- 
+  useEffect(() => {
+    console.log("currentPageData:", currentPageData);
+    console.log("items:", items);
+  }, [currentPageData, items]);
 
   const executeOnClick = useCallback((event, index) => {
     setExpandedIndexes((prevIndexes) =>

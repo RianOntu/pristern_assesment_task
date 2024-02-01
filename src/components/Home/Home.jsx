@@ -40,7 +40,7 @@ function Home() {
         localStorage.setItem('asc', JSON.stringify('asc'));
         setSelectedValue(JSON.parse(localStorage.getItem('asc')));
       }
-      else if(event.target.value='des'){
+      else if(event.target.value=='des'){
         localStorage.clear();
         localStorage.setItem('des', JSON.stringify('des'));
         setSelectedValue(JSON.parse(localStorage.getItem('des')));
