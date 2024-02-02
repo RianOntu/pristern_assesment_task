@@ -8,7 +8,7 @@ function Home({isLoading,setIsLoading}) {
     const [expand,setExpand]=useState(false);
 
     let url = import.meta.env.VITE_baseUrl
-   
+   // fetching datas from fakestoreapi
     useEffect(() => {
       const fetchData = async () => {
         setIsLoading(true);
@@ -27,7 +27,7 @@ function Home({isLoading,setIsLoading}) {
     }, []);
     console.log(isLoading);
     const categories=[];
-   
+   //Avoiding same categories
     for (let i=0;i<datas.length;i++){
         if(!categories.includes(datas[i].category)){
             categories.push(datas[i].category)
@@ -35,7 +35,7 @@ function Home({isLoading,setIsLoading}) {
     }
     
     const [selectedCategories, setSelectedCategories] = useState([]);
-
+// Used for selecting category
     const handleCheckboxChange = (category) => {
       
       setSelectedCategories((prevSelectedCategories) => {
@@ -47,7 +47,7 @@ function Home({isLoading,setIsLoading}) {
       });
     };
     const [selectedValue, setSelectedValue] = useState(''); 
-
+// Used for filtering by price
     const handleSelectChange = (event) => {
       
       if(event.target.value=='asc'){

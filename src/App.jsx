@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import Home from "./components/Home/Home"
-import Loader from "./components/Loader/Loader";
+
 
 function App() {
   const [isLoading,setIsLoading]=useState(false);
@@ -8,7 +8,7 @@ function App() {
 
   return (
     <>
-    {/* {isLoading?<Loader/>:<Home isLoading={isLoading} setIsLoading={setIsLoading}/>} */}
+   
       <Home isLoading={isLoading} setIsLoading={setIsLoading}/>
     
      

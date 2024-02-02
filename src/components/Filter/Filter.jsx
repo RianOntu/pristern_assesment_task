@@ -6,6 +6,7 @@ function Filter({categories,selectedCategories,handleCheckboxChange,selectedValu
     
     return (
         <>
+        {/* filter by categories and price  */}
         <h2>Filter By Category:</h2>
         {
             categories.map(data=>(

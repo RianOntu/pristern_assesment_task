@@ -20,13 +20,13 @@ function Products({ datas, selectedCategories, selectedValue,setIsLoading,isLoad
     console.log(shouldFetchMore);
     
       let updatedDatas = [...initialData];
-
+//Category selection
       if (selectedCategories.length > 0) {
         updatedDatas = updatedDatas.filter((data) =>
           selectedCategories.includes(data.category)
         );
       }
-  
+  // Sorting price by ascending and descending order
       if (selectedValue === 'asc') {
         updatedDatas = updatedDatas.slice().sort((a, b) => a.price - b.price);
       } else if (selectedValue === 'des') {

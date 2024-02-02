@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import ProductDetails from './components/Products/ProductDetails.jsx';
 let url = import.meta.env.VITE_baseUrl
+//routes
 const router = createBrowserRouter([
   {
     path: "/",
