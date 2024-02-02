@@ -22,3 +22,21 @@
     margin-top: -60px;
     position: absolute;
 }
+.margin_top{
+    margin-top: 100px;
+}
+
+@media only screen and (min-width:577px){
+	
+    .offset-lg-1{
+        margin-left: 8.33333%!important;
+    }
+}
+@media only screen and (min-width:992px){
+	.offset-lg-1{
+        margin-left: -0.666667%!important;
+    }
+}
+/* .offset-lg-1{
+    margin-left: 8.333333%!important;
+}     */

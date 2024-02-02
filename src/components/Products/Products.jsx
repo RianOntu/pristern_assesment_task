@@ -84,7 +84,7 @@ function Products({ datas, selectedCategories, selectedValue }) {
                 </div>
               </ShowMoreText>
               <h4 className="card-title price">Price: {data.price}</h4>
-              <a href="#" style={{ bottom: "10px", position: "absolute", marginTop: expandedIndexes.includes(index) ? "200px" : "0px" }} className="btn btn-primary" onClick={(event) => executeOnClick(event, index)}>
+              <a href={`details/${data.id}`} style={{ bottom: "10px", position: "absolute", marginTop: expandedIndexes.includes(index) ? "200px" : "0px" }} className="btn btn-primary" onClick={(event) => executeOnClick(event, index)}>
                 View Details
               </a>
             </div>
