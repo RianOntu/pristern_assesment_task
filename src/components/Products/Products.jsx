@@ -16,23 +16,30 @@ function Products({ datas, selectedCategories, selectedValue }) {
   }, [datas]);
 
   useEffect(() => {
-    let updatedDatas = [...initialData];
+    console.log(shouldFetchMore);
+    
+      let updatedDatas = [...initialData];
 
-    if (selectedCategories.length > 0) {
-      updatedDatas = updatedDatas.filter((data) =>
-        selectedCategories.includes(data.category)
-      );
-    }
-
-    if (selectedValue === 'asc') {
-      updatedDatas = updatedDatas.slice().sort((a, b) => a.price - b.price);
-    } else if (selectedValue === 'des') {
-      updatedDatas = updatedDatas.slice().sort((a, b) => b.price - a.price);
-    }
-
-    setItems(updatedDatas);
-    setCurrentPageData(updatedDatas.slice(0, 10));
-    setShouldFetchMore(updatedDatas.length > 10);
+      if (selectedCategories.length > 0) {
+        updatedDatas = updatedDatas.filter((data) =>
+          selectedCategories.includes(data.category)
+        );
+      }
+  
+      if (selectedValue === 'asc') {
+        updatedDatas = updatedDatas.slice().sort((a, b) => a.price - b.price);
+      } else if (selectedValue === 'des') {
+        updatedDatas = updatedDatas.slice().sort((a, b) => b.price - a.price);
+      }
+      if(shouldFetchMore){
+        setCurrentPageData(updatedDatas.slice(0, 10));
+        
+      }
+      setItems(updatedDatas);
+      
+      setShouldFetchMore(updatedDatas.length < 10);
+    
+ 
   }, [selectedCategories, selectedValue, initialData]);
 
   useEffect(() => {
