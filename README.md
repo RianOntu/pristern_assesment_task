@@ -1,8 +1,17 @@
-# React + Vite
+#How to run locally:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+#Fist git clone 
+#then in the command prompt type npm install
+#and then type npm run dev
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+#about the project:
+This is a simple e-commerce store type project built using reacts,HTML,CSS,bootstrap,react-router,sweetpagination etc.
+
+#Key features of the project:
+user can see products,filter products by category and price
+user can see any product details
+
+#live link :
+
+[Pristern_store](https://pristern-task.web.app/)
