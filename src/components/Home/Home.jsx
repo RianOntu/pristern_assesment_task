@@ -1,24 +1,39 @@
 import React, { useEffect, useState } from 'react'
 import Filter from '../Filter/Filter';
 import Products from '../Products/Products';
+import Loader from '../Loader/Loader';
 
-function Home() {
+function Home({isLoading,setIsLoading}) {
     const [datas,setDatas]=useState([]);
     const [expand,setExpand]=useState(false);
 
     let url = import.meta.env.VITE_baseUrl
-    useEffect(()=>{
-        
-        fetch(url)
-        .then(res=>res.json())
-        .then(data=>setDatas(data))
-    })
+   
+    useEffect(() => {
+      const fetchData = async () => {
+        setIsLoading(true);
+        try {
+          const response = await fetch(url);
+          const data = await response.json();
+          setDatas(data);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+  
+      fetchData();
+    }, []);
+    console.log(isLoading);
     const categories=[];
+   
     for (let i=0;i<datas.length;i++){
         if(!categories.includes(datas[i].category)){
             categories.push(datas[i].category)
         }
     }
+    
     const [selectedCategories, setSelectedCategories] = useState([]);
 
     const handleCheckboxChange = (category) => {
@@ -50,14 +65,23 @@ function Home() {
     return (
         <>
         <div className="container mt-5 mb-5">
-          <div className="row">
+      {
+          isLoading?<Loader/>: <div className="row">
           <div className="col-12 col-md-6 col-lg-3">
           <Filter datas={datas} categories={categories} selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} handleCheckboxChange={handleCheckboxChange} handleSelectChange={handleSelectChange} selectedValue={selectedValue}></Filter>
           </div>
           <div className="col-12 col-md-6 col-lg-9">
-            <Products datas={datas} setExpand={setExpand} expand={expand} setDatas={setDatas} selectedCategories={selectedCategories} selectedValue={selectedValue} handleSelectChange={handleSelectChange}></Products>
+
+            
+              <Products datas={datas} setExpand={setExpand} expand={expand} setDatas={setDatas} selectedCategories={selectedCategories} selectedValue={selectedValue} handleSelectChange={handleSelectChange} isLoading={isLoading} setIsLoading={setIsLoading}></Products>
+            
+            
+              
+            
             </div>
           </div>
+      }
+         
         </div>
         </>
         

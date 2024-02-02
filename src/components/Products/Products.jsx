@@ -2,8 +2,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import ShowMoreText from "react-show-more-text";
 import './Products.css';
 import SweetPagination from "sweetpagination";
+import Loader from "../Loader/Loader";
 
-function Products({ datas, selectedCategories, selectedValue }) {
+function Products({ datas, selectedCategories, selectedValue,setIsLoading,isLoading }) {
   const showMoreTextRefs = useRef([]);
   const [initialData, setInitialData] = useState(datas);
   const [items, setItems] = useState(datas);
@@ -38,7 +39,7 @@ function Products({ datas, selectedCategories, selectedValue }) {
       setItems(updatedDatas);
       
       setShouldFetchMore(updatedDatas.length < 10);
-    
+     
  
   }, [selectedCategories, selectedValue, initialData]);
 
@@ -58,6 +59,7 @@ function Products({ datas, selectedCategories, selectedValue }) {
   return (
     <>
       <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+       
         {currentPageData.map((data, index) => (
           <div
             className="card mt-3"
